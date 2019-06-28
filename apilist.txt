@@ -85,6 +85,29 @@ Jokes APIs
 
 
 
+    https://www.wordsapi.com/
+        API Link: https://wordsapiv1.p.mashape.com/
+
+        Example response:
+            {
+                "word": "example",
+                "synonyms": [
+                    "model",
+                    "exemplar",
+                    "good example",
+                    "case",
+                    "instance",
+                    "illustration",
+                    "representative",
+                    "deterrent example",
+                    "lesson",
+                    "object lesson",
+                    "exercise"
+                ]
+            }
+
+
+
 Food, Culture, Locations APIs
     https://www.mediawiki.org/wiki/API:Main_page
     https://developers.google.com/custom-search/
