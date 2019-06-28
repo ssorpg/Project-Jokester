@@ -1,11 +1,110 @@
 Jokes APIs
     https://api.chucknorris.io/
-    https://www.programmableweb.com/api/jokeapi
-    https://www.programmableweb.com/api/geek-jokes
-    https://www.programmableweb.com/api/corporate-bs-buzzword-generator
-    https://www.programmableweb.com/api/ron-swanson-quotes
-    https://icanhazdadjoke.com/api
+        API Link: https://api.chucknorris.io/jokes/
+        Example response:
+            {
+                "icon_url" : "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+                "id" : "1fQ9opiATFKTEtte8-Jthg",
+                "url" : ""
+                "value" : "Some people say that god can walk on water. Chuck Norris can swim on land"
+            }
+
+        Retrieve a random chuck norris joke from a given category.
+            https://api.chucknorris.io/jokes/random?category={category}
+
+        Retrieve a list of available categories.
+            https://api.chucknorris.io/jokes/categories
+
+        Free text search.
+            https://api.chucknorris.io/jokes/search?query={query}
+
+
+
+    https://sv443.net/jokeapi
+        API Link: https://sv443.net/jokeapi/category/{Category}
+
+        Example response:
+            {
+                “category”: “Programming”,
+                “type”: “single”,
+                “joke”: “I’ve got a really good UDP joke to tell you but I don’t know if you’ll get it.“,
+                “id”: 0
+            }
+
+            OR 
+
+            {
+                “category”: “Programming”,
+                “type”: “twopart”,
+                “setup”: “How many programmers does it take to screw in a light bulb?“,
+                “delivery”: “None. It’s a hardware problem.“,
+                “id”: 1
+            }
+
+
+
+    https://github.com/sameerkumar18/geek-joke-api
+        API Link: https://geek-jokes.sameerkumar.website/api
+
+        Example response:
+            "On his birthday, Chuck Norris randomly selects one lucky child to be thrown into the sun."
+
+
+
+    https://github.com/sameerkumar18/corporate-bs-generator-api
+        API Link: https://corporatebs-generator.sameerkumar.website/
+
+        Example response:
+            {
+                "phrase": "Compellingly Customize Backend Scenarios"
+            }
+
+
+
+    https://github.com/jamesseanwright/ron-swanson-quotes
+        API Link: https://ron-swanson-quotes.herokuapp.com/v2/quotes
+
+        Example response:
+            [
+                "Capitalism: God’s way of determining who is smart and who is poor."
+            ]
+
+
+
     https://yomomma.info/
+        API Link: https://api.yomomma.info/
+
+        Example response:
+            {
+                "joke": "Yo mama so fat, her stomach gets home 15 minutes before she does."
+            }
+
+
+
+    https://icanhazdadjoke.com/api -- Blocked
+
+
+
+    https://www.wordsapi.com/
+        API Link: https://wordsapiv1.p.mashape.com/
+
+        Example response:
+            {
+                "word": "example",
+                "synonyms": [
+                    "model",
+                    "exemplar",
+                    "good example",
+                    "case",
+                    "instance",
+                    "illustration",
+                    "representative",
+                    "deterrent example",
+                    "lesson",
+                    "object lesson",
+                    "exercise"
+                ]
+            }
 
 
 
