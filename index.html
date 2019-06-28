@@ -19,16 +19,15 @@
     <div class="container">
 
 
-        <div class="row" id="jokeSearch">
+        <div class="row justify-content-between" id="jokeSearch">
 
             <div class="col-md-6">
 
                 <form>
-                        <div class="form-group">
-                                <label for="exampleInputEmail1"></label>
-                                <input type="text" class="form-control" id="exampleInputEmail1">
-                                
-                            </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control searchBar">
+
+                    </div>
 
                     <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                 </form>
@@ -37,20 +36,22 @@
                     <div class="col-3 searchButton">
                         <button>Search</button>
                     </div>
-                    
+
+                    <div class="col-1"></div>
+
                     <div class="col-3 suggestButton">
-                        <button>Suggest A Word</button>
+                        <button>Suggest</button>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div id="mainContent" class="col-12">
+                    <div class="col-12 mainContent">
                         Display Content
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-3 suggestedTerms">
                 Suggested Terms
                 <div class="row">
                     <div class="col-12">
@@ -64,8 +65,12 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
+
+
+            <div class="col-md-2 checkBox">
                 General Jokes
+
+
                 <p>
                     <input class="selectAPI" type="checkbox" apiID="chuckNorrisJokes"
                         apiURL="https://api.chucknorris.io/jokes/search?query=" checked>
@@ -110,24 +115,27 @@
                     <input class="selectAPI" type="checkbox" apiID="" apiURL="" value="Gfycat Memes" checked>
                     <span></span>
                 </p>
+
             </div>
         </div>
-    </div>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/6.2.2/firebase-app.js"></script>
+        
 
-    <!-- Specific Firebase products we want -->
-    <script src="https://www.gstatic.com/firebasejs/6.2.2/firebase-database.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/6.2.2/firebase-app.js"></script>
 
-    <!-- Link to Moment.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+        <!-- Specific Firebase products we want -->
+        <script src="https://www.gstatic.com/firebasejs/6.2.2/firebase-database.js"></script>
 
-    <!-- Link to ResponsiveVoice.js -->
-    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+        <!-- Link to Moment.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
-    <!-- App Javascript -->
-    <script type="text/javascript" src="Assets/Javascript/app.js"></script>
+        <!-- Link to ResponsiveVoice.js -->
+        <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+
+        <!-- App Javascript -->
+        <script type="text/javascript" src="Assets/Javascript/app.js"></script>
 </body>
+
 
 </html>
