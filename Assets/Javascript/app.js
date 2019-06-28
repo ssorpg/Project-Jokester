@@ -131,6 +131,4 @@ $(document).ready(function () {
             }
         }
     })
-
-    getJokes();
 })

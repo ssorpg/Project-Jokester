@@ -5,24 +5,100 @@
     <meta charset="UTF-8">
     <title></title>
 
-    <!--Bootstrap-->
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-    <!--Custom Stylesheet-->
+    <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="Assets/CSS/style.css">
 </head>
 
 <body>
-    <div id="wrapper">
-        <div class="row">
-            <p>
-                <input class="selectAPI" type="checkbox" apiID="chuckNorrisJokes"
-                    apiURL="https://api.chucknorris.io/jokes/search?query=" checked>
-                <span>Chuck Norris Jokes</span>
-            </p>
+    <div class="container">
+
+
+        <div class="row" id="jokeSearch">
+ 
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                            else.</small>
+                    </div>
+ 
+                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                </form>
+ 
+                <div class="row">
+                    <div class="col-3">
+ 
+                        <button>1</button>
+                    </div>
+                    <div class="col-3">
+ 
+                        <button>2</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        display content
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="col-md-3">
+                Suggested terms
+                <div class="row">
+                    <div class="col-12">
+                        content here
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        more content
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="col-md-3">
+                general jokes
+                <br>
+                <p><input class="selectAPI" type="checkbox" apiID="chuckNorrisJokes"
+                        apiURL="https://api.chucknorris.io/jokes/search?query=" checked><span>"Chuck Norris
+                        Jokes"</span></p>
+ 
+                <p><input class="selectAPI" type="checkbox" apiID="generalJokes"
+                        apiURL="https://sv443.net/jokeapi/category/Any" checked><span>General Jokes</span></p>
+ 
+                <p><input class="selectAPI" type="checkbox" apiID="geekJokes"
+                        apiURL="https://geek-jokes.sameerkumar.website/api" checked><span>Geek Jokes</span></p>
+ 
+                <p><input class="selectAPI" type="checkbox" apiID="corporateBSJokes"
+                        apiURL="https://corporatebs-generator.sameerkumar.website/" checked><span>Corporate BS
+                        Jokes</span></p>
+ 
+                <p><input class="selectAPI" type="checkbox" apiID="ronSwansonJokes"
+                        apiURL="https://ron-swanson-quotes.herokuapp.com/v2/quotes" checked><span>Ron Swanson
+                        Jokes</span></p>
+ 
+                <p><input class="selectAPI" type="checkbox" apiID="yoMommaJokes" apiURL="https://api.yomomma.info/"
+                        checked><span>Yo Mamma Jokes</span></p>
+ 
+                <p><input class="selectAPI" type="checkbox" apiID="dadJokes"
+                        apiURL="https://icanhazdadjoke.com/search?limit=10&term=" checked><span>Dad Jokes</span></p>
+ 
+                <p><input class="selectAPI" type="checkbox" apiID="" apiURL="" value="Gfycat Memes" checked></p>
+            </div>
+ 
+ 
+ 
         </div>
     </div>
-
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/6.2.2/firebase-app.js"></script>
@@ -30,16 +106,13 @@
     <!-- Specific Firebase products we want -->
     <script src="https://www.gstatic.com/firebasejs/6.2.2/firebase-database.js"></script>
 
-    <!--jQuery-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <!-- Link to Moment.js should go here -->
+    <!-- Link to Moment.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
-    <!--Responsive Voice JS-->
-    <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+    <!-- Link to Moment.js should go here -->
+    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 
-    <!--App Javascript-->
+    <!-- App Javascript -->
     <script type="text/javascript" src="Assets/Javascript/app.js"></script>
 </body>
 
