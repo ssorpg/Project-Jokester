@@ -1,0 +1,21 @@
+Jokes APIs
+    https://api.chucknorris.io/
+    https://www.programmableweb.com/api/jokeapi
+    https://www.programmableweb.com/api/geek-jokes
+    https://www.programmableweb.com/api/corporate-bs-buzzword-generator
+    https://www.programmableweb.com/api/ron-swanson-quotes
+    https://icanhazdadjoke.com/api
+    https://yomomma.info/
+
+
+
+Food, Culture, Locations APIs
+    https://www.mediawiki.org/wiki/API:Main_page
+    https://developers.google.com/custom-search/
+    https://wiki.openstreetmap.org/wiki/API_v0.6
+    https://cloud.google.com/maps-platform/?&sign=1
+    https://www.wordsapi.com/
+    https://developer.foursquare.com/
+
+Music Lyric Searcher APIs
+    https://developer.musixmatch.com/
