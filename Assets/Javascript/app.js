@@ -3,6 +3,7 @@
 
 // Firebase
 const firebaseConfig = { // Use this or registering users and saving lastSearch + selectedAPIs
+
     apiKey: "AIzaSyCte7lhLlrSr3m3turhqLQQy3_3YSBymWE",
     authDomain: "trilogy-r-p-s.firebaseapp.com",
     databaseURL: "https://trilogy-r-p-s.firebaseio.com",
@@ -13,6 +14,7 @@ const firebaseConfig = { // Use this or registering users and saving lastSearch 
 };
 
 firebase.initializeApp(firebaseConfig);
+
 const database = firebase.database();
 
 // APIs
@@ -30,10 +32,10 @@ const proxyurl = "https://cors-anywhere.herokuapp.com/";
 // Dynamic
 var selectedAPIs = apis;
 var searchTerm = 'Cat';
+var apiURL = 'https://icanhazdadjoke.com/search?term=' + searchTerm;
 
 
 
-// FUNCTIONS
 function getJokes() {
     for (let api in selectedAPIs) {
         if (selectedAPIs[api]) {
