@@ -25,7 +25,7 @@ const apis = { // Apis here
     yoMommaJokes: 'https://api.yomomma.info',
     dadJokes: 'https://icanhazdadjoke.com/search?limit=10&term='
 }
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const proxyURL = "https://cors-anywhere.herokuapp.com/";
 
 // Dynamic
 var selectedAPIs = apis;
@@ -46,7 +46,7 @@ function getJokes() {
 
             // console.log(selectedAPIs[api]);
             $.ajax({
-                url: proxyurl + apiURL,
+                url: proxyURL + apiURL,
                 method: "GET",
                 headers: {
                     'Accept': 'application/json'
@@ -57,8 +57,8 @@ function getJokes() {
 
                 console.log(response);
 
-                let newJokeLine = $('<p>').text(api + ': ' + currentJoke);
-                $('#content').append(newJokeLine);
+                let newJoke = $('<p>').text(currentJoke);
+                $('.mainContent').append(newJoke);
             })
         }
     }
@@ -105,6 +105,10 @@ $(document).ready(function () {
         let target = $(event.target);
 
         responsiveVoice.speak(target.text());
+    })
+
+    $('.searchButton').on('click', event => {
+        getJokes();
     })
 
     $(document).on('click', '.selectAPI', event => {
