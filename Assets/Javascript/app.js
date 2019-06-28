@@ -58,7 +58,7 @@ function getJokes() {
                 console.log(response);
 
                 let newJokeLine = $('<p>').text(api + ': ' + currentJoke);
-                $('#wrapper').append(newJokeLine);
+                $('#content').append(newJokeLine);
             })
         }
     }
