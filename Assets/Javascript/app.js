@@ -22,7 +22,8 @@ const apis = { // Apis here
     geekJokes: 'https://geek-jokes.sameerkumar.website/api',
     corporateBSJokes: 'https://corporatebs-generator.sameerkumar.website',
     ronSwansonJokes: 'https://ron-swanson-quotes.herokuapp.com/v2/quotes',
-    yoMommaJokes: 'http://api.yomomma.info'
+    yoMommaJokes: 'https://api.yomomma.info',
+    dadJokes: 'https://icanhazdadjoke.com/search?limit=10&term='
 }
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
@@ -38,15 +39,18 @@ function getJokes() {
         if (selectedAPIs[api]) {
             let apiURL = selectedAPIs[api];
 
-            if (api === 'chuckNorrisJokes') { // Parameters here
+            if (api === 'chuckNorrisJokes' || api === 'dadJokes') { // Parameters here
                 apiURL += searchTerm;
             }
 
 
-            console.log(selectedAPIs[api]);
+            // console.log(selectedAPIs[api]);
             $.ajax({
                 url: proxyurl + apiURL,
-                method: "GET"
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json'
+                }
 
             }).then(response => {
                 let currentJoke = formatJoke(response, api);
@@ -86,6 +90,9 @@ function formatJoke(response, api) { // Get jokes from response here
     else if (api === 'yoMommaJokes') {
         currentJoke = JSON.parse(response).joke; // Have to parse this response because it's stringified by default
     }
+    else if (api === 'dadJokes') {
+        currentJoke = response.results[Math.floor(Math.random() * response.results.length)].joke;
+    }
 
     return currentJoke;
 }
@@ -103,10 +110,10 @@ $(document).ready(function () {
     $(document).on('click', '.selectAPI', event => {
         let target = $(event.target);
 
-        console.log(target[0].checked);
+        // console.log(target[0].checked);
 
         for (let api in selectedAPIs) {
-            console.log(api);
+            // console.log(api);
 
             if (!target[0].checked) { // Becomes unchecked before running this script
                 if (api === target.attr('apiID')) {
