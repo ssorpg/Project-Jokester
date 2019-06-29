@@ -53,13 +53,14 @@ function getJokes() {
             searchHeaders.url = proxyURL + apiURL;
             
             // console.log(selectedAPIs[api]);
-            console.log(searchHeaders);
+            // console.log(searchHeaders);
+
             $.ajax(searchHeaders).then(response => {
                 let currentJoke = formatJoke(response, api);
 
                 console.log(response);
 
-                let newJoke = $('<p>').html(currentJoke);
+                let newJoke = $('<p>').addClass('col-6 singleJoke').html(currentJoke);
                 $('.mainContent').append(newJoke);
             })
         }
