@@ -16,7 +16,8 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 // APIs
-const apis = { // Apis here
+const APIs = { // Apis here
+    giphyMemes: 'http://api.giphy.com/v1/gifs/search?limit=10&api_key=3dEcVRH1SquXQ50csTRKQnxK8aTT0yxt&q=',
     chuckNorrisJokes: 'https://api.chucknorris.io/jokes/search?query=',
     generalJokes: 'https://sv443.net/jokeapi/category/Any',
     geekJokes: 'https://geek-jokes.sameerkumar.website/api',
@@ -25,10 +26,10 @@ const apis = { // Apis here
     yoMommaJokes: 'https://api.yomomma.info',
     dadJokes: 'https://icanhazdadjoke.com/search?limit=10&term='
 }
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const proxyURL = 'https://cors-anywhere.herokuapp.com/';
 
 // Dynamic
-var selectedAPIs = apis;
+var selectedAPIs = APIs;
 var searchTerm = 'Cat';
 
 
@@ -38,27 +39,29 @@ function getJokes() {
     for (let api in selectedAPIs) {
         if (selectedAPIs[api]) {
             let apiURL = selectedAPIs[api];
-
-            if (api === 'chuckNorrisJokes' || api === 'dadJokes') { // Parameters here
-                apiURL += searchTerm;
-            }
-
-
-            // console.log(selectedAPIs[api]);
-            $.ajax({
-                url: proxyurl + apiURL,
+            let searchHeaders = {
                 method: "GET",
                 headers: {
                     'Accept': 'application/json'
                 }
+            }
 
-            }).then(response => {
+            if (api === 'chuckNorrisJokes' || api === 'dadJokes' || api === 'giphyMemes') { // Parameters here
+                apiURL += searchTerm;
+            }
+
+            searchHeaders.url = proxyURL + apiURL;
+            
+            // console.log(selectedAPIs[api]);
+            // console.log(searchHeaders);
+
+            $.ajax(searchHeaders).then(response => {
                 let currentJoke = formatJoke(response, api);
 
                 console.log(response);
 
-                let newJokeLine = $('<p>').text(api + ': ' + currentJoke);
-                $('#content').append(newJokeLine);
+                let newJoke = $('<p>').addClass('col-6 singleJoke').html(currentJoke);
+                $('.mainContent').append(newJoke);
             })
         }
     }
@@ -72,7 +75,7 @@ function formatJoke(response, api) { // Get jokes from response here
     }
     else if (api === 'generalJokes') {
         if (response.type === 'twopart') {
-            currentJoke = response.setup + ' ' + response.delivery; // Need two properties
+            currentJoke = response.setup + '<br>' + response.delivery; // Need two properties
         }
         else if (response.type === 'single') {
             currentJoke = response.joke;
@@ -93,6 +96,10 @@ function formatJoke(response, api) { // Get jokes from response here
     else if (api === 'dadJokes') {
         currentJoke = response.results[Math.floor(Math.random() * response.results.length)].joke;
     }
+    else if (api === 'giphyMemes') {
+        currentJoke = response.data[Math.floor(Math.random() * response.data.length)].images.fixed_height.url;
+        currentJoke = '<img src="' + currentJoke + '">';
+    }
 
     return currentJoke;
 }
@@ -101,10 +108,17 @@ function formatJoke(response, api) { // Get jokes from response here
 
 // FUNCTION CALLS
 $(document).ready(function () {
-    $(document).on('click', 'p', event => {
+    $(document).on('click', '.singleJoke', event => {
         let target = $(event.target);
 
         responsiveVoice.speak(target.text());
+    })
+
+    $('.searchButton').on('click', event => {
+        $('.mainContent').empty();
+        searchTerm = $('.searchBar').val();
+
+        getJokes();
     })
 
     $(document).on('click', '.selectAPI', event => {
