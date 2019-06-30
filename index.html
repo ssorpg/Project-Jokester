@@ -13,46 +13,47 @@
 
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="Assets/CSS/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Barriecito&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div class="container">
 
-
-        <div class="row" id="jokeSearch">
+        <div class="row justify-content-between" id="jokeSearch">
 
             <div class="col-md-6">
+
                 <form>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter email">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                            else.</small>
+                        <input type="text" class="form-control searchBar">
+
                     </div>
 
                     <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                 </form>
 
-                <div class="row">
-                    <div class="col-3">
+                <div class="row justify-content-center">
+                    <div class="col-3 searchButton">
                         <button>Search</button>
                     </div>
-                    
-                    <div class="col-3">
-                        <button>Suggest A Word</button>
+
+                    <div class="col-1"></div>
+
+                    <div class="col-3 suggestButton">
+                        <button>Suggest</button>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div id="content">
+                    <div class="col-12 mainContent">
                         Display Content
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-3">
-                Suggested Terms
+            <div class="col-md-3 suggestedTerms">
+               <div class= "centerTerms">Suggested Terms</div> 
+
                 <div class="row">
                     <div class="col-12">
                         content here
@@ -65,8 +66,12 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
-                General Jokes
+
+
+            <div class="col-md-2 checkBox">
+                <div class= "centerJokes"> General Jokes </div>
+
+
                 <p>
                     <input class="selectAPI" type="checkbox" apiID="chuckNorrisJokes"
                         apiURL="https://api.chucknorris.io/jokes/search?query=" checked>
@@ -111,24 +116,27 @@
                     <input class="selectAPI" type="checkbox" apiID="" apiURL="" value="Gfycat Memes" checked>
                     <span></span>
                 </p>
+
             </div>
         </div>
-    </div>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/6.2.2/firebase-app.js"></script>
+        
 
-    <!-- Specific Firebase products we want -->
-    <script src="https://www.gstatic.com/firebasejs/6.2.2/firebase-database.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/6.2.2/firebase-app.js"></script>
 
-    <!-- Link to Moment.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+        <!-- Specific Firebase products we want -->
+        <script src="https://www.gstatic.com/firebasejs/6.2.2/firebase-database.js"></script>
 
-    <!-- Link to ResponsiveVoice.js -->
-    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+        <!-- Link to Moment.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
-    <!-- App Javascript -->
-    <script type="text/javascript" src="Assets/Javascript/app.js"></script>
+        <!-- Link to ResponsiveVoice.js -->
+        <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+
+        <!-- App Javascript -->
+        <script type="text/javascript" src="Assets/Javascript/app.js"></script>
 </body>
+
 
 </html>
