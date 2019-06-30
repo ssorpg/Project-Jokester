@@ -10,11 +10,13 @@ border-radius: 20px;
 .centerTerms {
 text-align:center;
 font-family: 'Barriecito', cursive;
+font-size:25px; 
 }
 
 .centerJokes{
     text-align:center;
     font-family: 'Barriecito', cursive;
+    font-size:25px;
 }
     
 
