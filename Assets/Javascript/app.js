@@ -108,7 +108,7 @@ function formatJoke(response, api) { // Get jokes from response here
 
 // FUNCTION CALLS
 $(document).ready(function () {
-    $(document).on('click', 'p', event => {
+    $(document).on('click', '.singleJoke', event => {
         let target = $(event.target);
 
         responsiveVoice.speak(target.text());
