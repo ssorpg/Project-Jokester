@@ -73,38 +73,39 @@ function formatJoke(response, api) { // Get jokes from response here
     let currentJoke;
 
     try { // Catch arrays with no jokes in them (undefined)
-        if (api === 'chuckNorrisJokes') {
-            currentJoke = response.result[getRandomPos(response.result.length)].value; // Random joke
-        }
-        else if (api === 'generalJokes') {
-            if (response.type === 'twopart') {
-                currentJoke = response.setup + '<br>' + response.delivery; // Get two properties
-            }
-            else if (response.type === 'single') {
-                currentJoke = response.joke; // String
-            }
-        }
-        else if (api === 'geekJokes') {
-            currentJoke = response; // String
-        }
-        else if (api === 'corporateBS') {
-            currentJoke = response.phrase; // String
-        }
-        else if (api === 'ronSwansonQuotes') {
-            currentJoke = response[0]; // Array
-        }
-        else if (api === 'yoMommaJokes') {
-            currentJoke = JSON.parse(response).joke; // Have to parse this response because it's stringified by default
-        }
-        else if (api === 'dadJokes') {
-            currentJoke = response.results[getRandomPos(response.results.length)].joke; // Random joke
-        }
-        else if (api === 'giphyMemes') {
-            currentJoke = response.data[getRandomPos(response.data.length)].images.fixed_height.url; // Random image
-            currentJoke = '<img src="' + currentJoke + '" style="max-width: 100%;">'; // Create image element
+        switch (api) {
+            case 'chuckNorrisJokes':
+                currentJoke = response.result[getRandomPos(response.result.length)].value; // Random joke
+                break;
+            case 'generalJokes':
+                if (response.type === 'twopart') {
+                    currentJoke = response.setup + '<br>' + response.delivery; // Get two properties
+                }
+                else if (response.type === 'single') {
+                    currentJoke = response.joke; // String
+                }
+                break;
+            case 'geekJokes':
+                currentJoke = response; // String
+                break;
+            case 'corporateBS':
+                currentJoke = response.phrase; // String
+                break;
+            case 'ronSwansonQuotes':
+                currentJoke = response[0]; // Array
+                break;
+            case 'yoMommaJokes':
+                currentJoke = JSON.parse(response).joke; // Stringified by default
+                break;
+            case 'dadJokes':
+                currentJoke = response.results[getRandomPos(response.results.length)].joke; // Random joke
+                break;
+            case 'giphyMemes':
+                currentJoke = response.data[getRandomPos(response.data.length)].images.fixed_height.url; // Random image
+                currentJoke = '<img src="' + currentJoke + '" style="max-width: 100%;">'; // Create image element
         }
     }
-    catch(error) {
+    catch (error) {
         console.log('ERR: No ' + api + ' found.');
     }
 
@@ -157,6 +158,37 @@ $(document).ready(function () { // Wait for page to load
 
         let searchTerm = target.text(); // Get the suggested word text
         $('.searchBar').val(searchTerm); // Put the term in the search bar
+
+        getJokes(searchTerm); // Get the jokes!
+    });
+
+    $('.searchButton').on('click', event => {
+        let searchTerm = $('.searchBar').val(); // Get search term from search bar
+
+        getJokes(searchTerm);
+    });
+
+    $('.searchBar').on('keypress', event => {
+        if (event.keyCode === 13) { // 13 is the enter key
+            event.preventDefault();
+
+            let searchTerm = $('.searchBar').val(); // Get search term from search bar
+
+            getJokes(searchTerm);
+        }
+    });
+
+    $('.suggestButton').on('click', event => {
+        let searchTerm = randWords[getRandomPos(randWords.length)].word; // Get a random word from our dictionary
+        $('.searchBar').val(searchTerm);
+
+        getJokes(searchTerm);
+    });
+
+    $(document).on('click', '.selectAPI', event => { // When the user clicks a checkbox or it's label...
+        event.preventDefault();
+
+        let target = $(event.target.querySelector('input')); // Get the actual checkbox
 
         getJokes(searchTerm); // Get the jokes!
     });
