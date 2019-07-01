@@ -26,16 +26,19 @@ const APIs = { // Apis here
     yoMommaJokes: 'https://api.yomomma.info',
     dadJokes: 'https://icanhazdadjoke.com/search?limit=10&term='
 }
+const relatedWordsAPI = 'https://api.datamuse.com/words?ml=';
 const proxyURL = 'https://cors-anywhere.herokuapp.com/';
 
 // Dynamic
 var selectedAPIs = APIs;
-var searchTerm = 'Cat';
+var searchTerm;
 
 
 
 // FUNCTIONS
 function getJokes() {
+    $('.mainContent').empty();
+
     for (let api in selectedAPIs) {
         if (selectedAPIs[api]) {
             let apiURL = selectedAPIs[api];
@@ -51,7 +54,7 @@ function getJokes() {
             }
 
             searchHeaders.url = proxyURL + apiURL;
-            
+
             // console.log(selectedAPIs[api]);
             // console.log(searchHeaders);
 
@@ -60,18 +63,20 @@ function getJokes() {
 
                 console.log(response);
 
-                let newJoke = $('<p>').addClass('col-6 singleJoke').html(currentJoke);
+                let newJoke = $('<p>').addClass('col-12 singleJoke').html(currentJoke);
                 $('.mainContent').append(newJoke);
             })
         }
     }
+
+    getSuggestions();
 }
 
 function formatJoke(response, api) { // Get jokes from response here
     let currentJoke;
 
     if (api === 'chuckNorrisJokes') {
-        currentJoke = response.result[Math.floor(Math.random() * response.result.length)].value;
+        currentJoke = response.result[getRandomPos(response.result.length)].value;
     }
     else if (api === 'generalJokes') {
         if (response.type === 'twopart') {
@@ -94,14 +99,48 @@ function formatJoke(response, api) { // Get jokes from response here
         currentJoke = JSON.parse(response).joke; // Have to parse this response because it's stringified by default
     }
     else if (api === 'dadJokes') {
-        currentJoke = response.results[Math.floor(Math.random() * response.results.length)].joke;
+        currentJoke = response.results[getRandomPos(response.results.length)].joke;
     }
     else if (api === 'giphyMemes') {
-        currentJoke = response.data[Math.floor(Math.random() * response.data.length)].images.fixed_height.url;
-        currentJoke = '<img src="' + currentJoke + '">';
+        currentJoke = response.data[getRandomPos(response.data.length)].images.fixed_height.url;
+        currentJoke = '<img src="' + currentJoke + '" style="max-width:100%;">';
     }
 
     return currentJoke;
+}
+
+function getRandomPos(length) {
+    let position = Math.floor(Math.random() * length);
+
+    return position;
+}
+
+function getSuggestions() {
+    $('.suggestedContent').empty();
+
+    $.ajax({
+        url: relatedWordsAPI + searchTerm,
+        method: "GET",
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        let i = 0;
+
+        console.log(response);
+
+        while (i < 10 && response[i]) {
+            let currentSuggestion = response[getRandomPos(response.length)].word;
+
+            let newSuggestion = $('<button>').addClass('col-6 singleSuggestion').html(currentSuggestion);
+            $('.suggestedContent').append(newSuggestion);
+
+            i++;
+
+
+            
+        }
+    })
 }
 
 
@@ -114,9 +153,29 @@ $(document).ready(function () {
         responsiveVoice.speak(target.text());
     })
 
+
+//makes suggested terms into buttons 
+
+    $(document).on('click', '.singleSuggestion', event => {
+        let target = $(event.target);
+
+        searchTerm= target.text();
+
+        $('.searchBar').val(searchTerm);
+
+        getJokes();
+
+    })
+
     $('.searchButton').on('click', event => {
-        $('.mainContent').empty();
         searchTerm = $('.searchBar').val();
+
+        getJokes();
+    })
+
+    $('.suggestButton').on('click', event => {
+        searchTerm = randWords[getRandomPos(randWords.length)].word;
+        $('.searchBar').val(searchTerm);
 
         getJokes();
     })

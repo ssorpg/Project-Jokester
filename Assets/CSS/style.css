@@ -1,10 +1,11 @@
 
 
 .suggestedTerms {
-height:100px;
-background: #FFFFFF;
-box-shadow: inset 0px 4px 17px rgba(0, 0, 0, 0.25);
+height:fit-content;
+background: rgb(255, 255, 255);
+box-shadow: inset 0px 4px 17px #dcff16;
 border-radius: 20px;
+
 }
 
 .centerHeader {
@@ -16,14 +17,22 @@ text-decoration: underline;
     
 
 .mainContent {
-    min-height: 500px;
+    height:fit-content;
     margin-top:30px;
     background-color: gainsboro;
-    border-radius: 20px;}
+    border-radius: 20px;
+    font-family: Brawler;
+   column-count:2; 
+   column-gap:0px; 
+   padding:24px;
+
+
+}
 
 .searchButton {
-height:59px;
-background: #FF3737;
+min-height: 80px;
+width: 200px;
+background: rgba(251, 215, 8, 0.952);
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 20px;
 font-family: Brawler;
@@ -32,45 +41,70 @@ font-weight: normal;
 font-size: 36px;
 line-height: 54px;
 text-align: center;
-color: #FFFFFF;
-text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 20px;
+display: inline-flex;
+justify-content: center;
+}
+.searchButton > button {
+    flex: 0.7;
 }
 
 .suggestButton {
 
-background: #3655F7;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 20px;
-
-
-font-family: Brawler;
-font-style: normal;
-font-weight: normal;
-font-size: 31px;
-line-height: 54px;
-text-align: center;
-
-color: #FFF9F9;
-
-text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
+    min-height: 80px;
+    width: 200px;
+    background: rgb(30, 129, 221);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    font-family: Brawler;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 54px;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    }
+    .suggestButton > button {
+        flex: 0.7;
+    }
 
 .container {
     margin-top: 20px;
 }
 
 .checkBox {
-height:400px;
+height:fit-content;
 background: #FFFFFF;
-box-shadow: inset 0px 4px 17px rgba(0, 0, 0, 0.25);
+box-shadow: inset 0px 4px 17px rgb(255, 251, 3);
 border-radius: 20px;
 }
 
-body {background-image: url("../Images/dadjokes-550.jpg")
-}
+/* body {background-image: url("../Images/dadjokes-550.jpg")
+} */
 
 .singleJoke {
-    display: inline-block;
-    max-width: 45%;
+    width:100%;
+}
+
+.searchBar { 
+    line-height: 1.5;
+    font-family: 'Barriecito', cursive;
+    font-size:40px; 
+    border-color: yellow;
+    border-width: 6px;
+    text-transform: uppercase;
+    text-align:center;
+    
+
+}
+
+.suggestedContent {
+ text-transform: capitalize;
+ padding:24px;
+}
+
+.singleSuggestions 
+
+{
+    
 }
