@@ -60,7 +60,7 @@ function getJokes(searchTerm) {
 
                 let currentJoke = formatJoke(response, api); // Get the actual joke from the response
 
-                let newJoke = $('<p>').addClass('col-12 singleJoke').html(currentJoke); // Create the joke
+                let newJoke = $('<p>').addClass('col-12 singleJoke').html('<button type="button" id="white" font-size:10px;">♪</button>' + `<span>${currentJoke}</span>`); // Create the joke
                 $('.mainContent').append(newJoke); // Put it on the page
             });
         }
@@ -104,7 +104,7 @@ function formatJoke(response, api) { // Get jokes from response here
             currentJoke = '<img src="' + currentJoke + '" style="max-width: 100%;">'; // Create image element
         }
     }
-    catch(error) {
+    catch (error) {
         console.log('ERR: No ' + api + ' found.');
     }
 
