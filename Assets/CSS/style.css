@@ -5,6 +5,8 @@
     width: 90%;
     margin: auto;
     margin-top: 20px;
+    margin-bottom: 40px;
+    display: none;
 }
 #jokeSearch {
     align-items: flex-start;
@@ -52,6 +54,9 @@
     display: block;
     break-inside: avoid-column;
 }
+img {
+    max-width: 100%;
+}
 .suggestedTerms {
     box-shadow: inset 0px 4px 17px rgb(220, 255, 22);
     border-radius: 20px;
@@ -77,4 +82,22 @@
 .selectAPI {
     margin-top: 14px;
     display: block;
+}
+.chuckNorrisJokes {
+    color: red;
+}
+.generalJokes {
+    color: blue;
+}
+.geekJokes {
+    color: green;
+}
+.ronSwansonQuotes {
+    color: brown;
+}
+.yoMommaJokes {
+    color: purple;
+}
+.dadJokes {
+    color: goldenrod;
 }

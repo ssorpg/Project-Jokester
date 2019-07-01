@@ -109,6 +109,7 @@ Jokes APIs
 Potential APIs
     https://www.belikebill.ga/
     https://xkcd.com/json.html
+    https://docs.tronalddump.io/
 
 
 
