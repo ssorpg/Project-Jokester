@@ -12,7 +12,7 @@
 .searchBar { 
     font-family: 'Barriecito', cursive;
     font-size: 40px; 
-    border-color: yellow;
+    border-color: rgb(251, 214, 8);
     border-width: 6px;
     text-transform: uppercase;
     text-align: center;
@@ -20,7 +20,7 @@
 .searchButton, .suggestButton {
     min-height: 80px;
     width: 200px;
-    background: rgba(251, 215, 8, 0.952);
+    background: rgb(251, 214, 8);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
     font-family: 'Times New Roman', Times, serif;
@@ -30,18 +30,19 @@
     display: inline-flex;
     justify-content: center;
 }
+.suggestButton {
+    background: rgb(30, 129, 221);
+}
 .searchButton > button, .suggestButton > button {
     flex: 0.7;
     border: none;
 }
-.suggestButton {
-    background: rgb(30, 129, 221);
-}
 .mainContent {
     margin-top: 3%;
-    background-color: lightgray;
+    background-color: rgb(211, 211, 211);
     border-radius: 20px;
     font-family: 'Times New Roman', Times, serif;
+    font-size: 22px;
     column-count: 2; 
     column-gap: 0px;
     padding: 24px;
@@ -52,15 +53,15 @@
     break-inside: avoid-column;
 }
 .suggestedTerms {
-    box-shadow: inset 0px 4px 17px #dcff16;
+    box-shadow: inset 0px 4px 17px rgb(220, 255, 22);
     border-radius: 20px;
+    padding: 20px;
 }
 .centerHeader {
     text-align: center;
     font-family: 'Barriecito', cursive;
     font-size: 25px;
     text-decoration: underline;
-    margin-top: 12px;
 }
 .suggestedContent {
     padding: 12px;
@@ -71,8 +72,9 @@
 .checkBoxes {
     box-shadow: inset 0px 4px 17px rgb(255, 251, 3);
     border-radius: 20px;
+    padding: 20px;
 }
 .selectAPI {
-    margin-top: 12px;
+    margin-top: 14px;
     display: block;
 }

@@ -122,23 +122,23 @@ function getSuggestions(searchTerm) {
     $('.suggestedContent').empty(); // Empty our suggestedTerms for new search
 
     $.ajax({
-        url: relatedWordsAPI + searchTerm, // Only use one API for this so no need for a for loop
+        url: relatedWordsAPI + searchTerm, // Only use one API for this so no need for a loop
         method: "GET",
         headers: {
             'Accept': 'application/json'
         }
     }).then(response => {
-        let i = 0;
+        let numSuggestions = 0;
 
         console.log(response);
 
-        while (i < 10 && response[i]) { // Only get up to 10 results
+        while (numSuggestions < 10 && response[numSuggestions]) { // Only get up to 10 results
             let currentSuggestion = response[getRandomPos(response.length)].word;
 
             let newSuggestion = $('<button>').addClass('col-6 singleSuggestion').html(currentSuggestion);
             $('.suggestedContent').append(newSuggestion);
 
-            i++;
+            numSuggestions++;
         }
     });
 }
@@ -176,27 +176,6 @@ $(document).ready(function () { // Wait for page to load
 
             getJokes(searchTerm);
         }
-    });
-
-    $('.suggestButton').on('click', event => {
-        let searchTerm = randWords[getRandomPos(randWords.length)].word; // Get a random word from our dictionary
-        $('.searchBar').val(searchTerm);
-
-        getJokes(searchTerm);
-    });
-
-    $(document).on('click', '.selectAPI', event => { // When the user clicks a checkbox or it's label...
-        event.preventDefault();
-
-        let target = $(event.target.querySelector('input')); // Get the actual checkbox
-
-        getJokes(searchTerm); // Get the jokes!
-    });
-
-    $('.searchButton').on('click', event => {
-        let searchTerm = $('.searchBar').val(); // Get search term from search bar
-
-        getJokes(searchTerm);
     });
 
     $('.suggestButton').on('click', event => {
