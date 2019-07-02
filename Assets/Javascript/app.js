@@ -264,7 +264,12 @@ $(document).ready(function () { // Wait for page to load
     });
 
     $(document).on('click', '.button', event => {
-        let target = $(event.target).parent().parent().find('.jokeText');
+        if(responsiveVoice.isPlaying()) { // Button can be used as a toggle
+            responsiveVoice.cancel();
+            return;
+        }
+        
+        let target = $(event.target).parent().parent().find('.jokeText'); // I don't like this line of code but idk how to fix it
 
         responsiveVoice.speak(target.text(), "UK English Male", {pitch: 2}); // Read out a clicked joke
     });
