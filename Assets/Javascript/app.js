@@ -73,10 +73,11 @@ function getJokes(searchTerm) {
 
                 if (currentJoke) {
                     let newJoke = $('<p>').addClass('col-12 singleJoke ' + api).html(currentJoke); // Create the joke
+                    $('.mainContent').append(newJoke); // Put it on the page
+
                     registry.child(selectedUsername).update({
                         searchResults: $('.mainContent').html()
                     })
-                    $('.mainContent').append(newJoke); // Put it on the page
                 }
             });
         }
@@ -175,16 +176,18 @@ function getUser() {
 
     registry.child(selectedUsername).once('value', snapshot => {
         if (snapshot.exists()) {
-            snapshot = snapshot.val();
+            snapshot = snapshot.val(); // Turn into a JS object for ease of use
 
             APIs = snapshot.APIs;
-            pageSetup(snapshot); // Turn into a JS object for ease of use
+            pageSetup(snapshot);
         }
         else {
             registry.child(selectedUsername).update({
                 name: selectedUsername,
                 APIs: APIs
             })
+            
+            createAPIList();
         }
     })
 }
@@ -194,6 +197,10 @@ function pageSetup(snapshot) {
     $('.suggestedContent').html(snapshot.suggestions);
     $('.searchBar').val(snapshot.searchTerm);
 
+    createAPIList();
+}
+
+function createAPIList() {
     for (let api in APIs) {
         let newLabel = $('<label>').addClass('selectAPI ' + api);
         newLabel.html('<input type="checkbox" apiID="' + api + '" checked>' + APIs[api].name);
@@ -218,6 +225,17 @@ $(document).ready(function () { // Wait for page to load
 
         $('.usernameInput').val(selectedUsername);
     }
+
+    $('.hamburgerButton').on('click', event => {
+        if ($('.checkBoxes').css('display') === 'none') {
+            $('.checkBoxes').css('display', 'initial');
+            $('.mainContent').css('display', 'none');
+        }
+        else {
+            $('.checkBoxes').css('display', 'none');
+            $('.mainContent').css('display', 'initial');
+        }
+    })
 
     $('.login').on('click', event => {
         selectedUsername = $('.usernameInput').val();
