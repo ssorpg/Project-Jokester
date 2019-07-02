@@ -74,6 +74,9 @@
     column-gap: 14px;
     padding: 24px;
 }
+p {
+    color: rgb(255, 255, 255);
+}
 .singleJoke {
     width: 100%;
     display: block;
@@ -83,6 +86,34 @@
     border-radius: 20px;
     font-size:large;
     padding: 20px;
+}
+.button {
+    font-size: 30px;
+    border-radius:50%;
+    float: left;
+    margin-right: 8px;
+    border: none;
+}
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.1s;
+}
+.button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: 10px;
+    transition: 0.2s;
+}
+.button:hover span {
+    padding-right: 25px;
+}
+.button:hover span:after {
+    opacity: 1;
+    right: 0;
 }
 img {
     max-width: 100%;
@@ -167,38 +198,4 @@ img {
 }
 .dadJokes {
     color: rgb(218, 165, 32);
-}
-.singleJoke {
-    min-height: fit-content;
-}
-.button {
-    font-size: 30px;
-    border-radius:50%;
-    float: left;
-    margin-right: 8px;
-    border: none;
-}
-.button span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.1s;
-}
-.button span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: 10px;
-    transition: 0.2s;
-}
-.button:hover span {
-    padding-right: 25px;
-}
-.button:hover span:after {
-    opacity: 1;
-    right: 0;
-}
-p {
-    color: rgb(255, 255, 255);
 }
