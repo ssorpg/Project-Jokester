@@ -51,8 +51,6 @@ function getJokes(searchTerm) {
                 let searchForm = $('<form>');
                 searchForm = searchForm.html('<input name="search" type="text" value="' + searchTerm + '">');
 
-                console.log(searchForm[0]);
-
                 let searchData = new FormData(searchForm[0]); // Convert to regular JS element
 
                 searchHeaders = {
@@ -66,9 +64,6 @@ function getJokes(searchTerm) {
             searchHeaders.url = proxyURL + apiURL; // Always use CORS proxy
 
             $.ajax(searchHeaders).then(response => {
-                console.log(api + ' response: ');
-                console.log(response);
-
                 let currentJoke = formatJoke(response, api); // Get the actual joke from the response
                 let newJoke;
 
@@ -150,7 +145,6 @@ function formatJoke(response, api) { // Get jokes from response here
         console.log('ERR: No ' + api + ' found.');
     }
 
-    console.log(currentJoke);
     return currentJoke;
 }
 
@@ -171,8 +165,6 @@ function getSuggestions(searchTerm) {
         }
     }).then(response => {
         let numSuggestions = 0;
-
-        console.log(response);
 
         while (numSuggestions < 10 && response[numSuggestions]) { // Only get up to 10 results
             let currentSuggestion = response[getRandomPos(response.length)].word;
@@ -274,8 +266,6 @@ $(document).ready(function () { // Wait for page to load
     $(document).on('click', '.button', event => {
         let target = $(event.target).parent().parent().find('.jokeText');
 
-        console.log(target);
-
         responsiveVoice.speak(target.text(), "UK English Male", {pitch: 2}); // Read out a clicked joke
     });
 
@@ -318,8 +308,6 @@ $(document).ready(function () { // Wait for page to load
             target = $(event.target.querySelector('input')); // Get the checkbox child
         }
 
-        console.log(target.attr('checked'));
-
         for (let api in APIs) {
             if (api === target.attr('apiID')) {
                 if (target.prop('checked') === false) { // Checkbox unchecks BEFORE this script runs
@@ -336,7 +324,5 @@ $(document).ready(function () { // Wait for page to load
         registry.child(selectedUsername).update({
             APIs: APIs
         })
-
-        console.log(APIs);
     });
 });
