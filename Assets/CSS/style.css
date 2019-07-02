@@ -18,10 +18,11 @@
 .searchBar { 
     font-family: 'Barriecito', cursive;
     font-size: 40px; 
-    border-color: rgb(251, 214, 8);
+    border-color: #ef027d;
     border-width: 6px;
     text-transform: uppercase;
     text-align: center;
+    font-weight:bold;
 }
 .searchButton, .suggestButton {
     min-height: 80px;
@@ -29,12 +30,14 @@
     background: rgb(251, 214, 8);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 36px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 26px;
     line-height: 54px;
     text-align: center;
     display: inline-flex;
     justify-content: center;
+
+    
 }
 .suggestButton {
     background: rgb(30, 129, 221);
@@ -43,20 +46,29 @@
     flex: 0.7;
     border: none;
 }
+.searchButton:hover, .suggestButton:hover {
+	  background: linear-gradient(to bottom, #ef027d 5%, #ef027d 100%);
+	  background-color: #68a54b;
+}
 .mainContent {
-    margin-top: 3%;
-    background-color: rgb(211, 211, 211);
-    border-radius: 20px;
+    margin-top: 6%;
+    background-color: rgb(255, 251, 251);
+    border-radius: 10px;
     font-family: 'Times New Roman', Times, serif;
     font-size: 22px;
     column-count: 2; 
-    column-gap: 0px;
+    column-gap: 14px;
     padding: 24px;
 }
 .singleJoke {
     width: 100%;
     display: block;
     break-inside: avoid-column;
+    background: white;
+    box-shadow: inset 0px 4px 17px #f4e1e1;
+    border-radius: 20px;
+    text-align: center;
+    font-size: large;
 }
 img {
     max-width: 100%;
@@ -77,15 +89,88 @@ img {
 }
 .singleSuggestion {
     text-transform: capitalize;
+    /* width: 100px;
+    height: 100px;
+    background: rgb(255, 248, 30);
+    border-radius: 50%;
+    font-family: 'Alfa Slab One', cursive;
+    font-size: large; */
+    box-shadow: inset 0px 1px 0px 0px #9acc85;
+    background: linear-gradient(to bottom, #74ad5a 5%, #68a54b 100%);
+    background-color: #74ad5a;
+    border: 1px solid #3b6e22;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 12px;
+    text-decoration: none;
+}
+
+.singleSuggestion:hover {
+    background: linear-gradient(to bottom, #ef027d 5%, #ef027d 100%);
+    background-color: #68a54b;
+
 }
 .checkBoxes {
     box-shadow: inset 0px 4px 17px rgb(255, 251, 3);
     border-radius: 20px;
-    padding: 20px;
 }
 .selectAPI {
     margin-top: 14px;
     display: block;
+}
+.button {
+    /*[ Position ]*/
+    margin: 0 10px 50px 10px;
+    float: left;
+    left: 200px;
+    top: 90px;
+    /* [ Botton ] */
+    position: relative;
+    height: 10px;
+    width: 10px;
+    cursor: pointer;
+    line-height: 47px;
+    background-color: #f1f1f1;
+    text-align: center;
+    font-size: 30px;
+    display: inline-block;
+    text-shadow: 0px -1px 1px rgba(255,255,255,0.5);
+    color: #444;
+    /* Transitions */
+    transition: .1s ease-out;
+    /* Shadows */
+    box-shadow: inset 0 0 5px 0 rgba(255,255,255,0.5);
+    /* Borders */
+    border-width: 1px;
+    border-style: solid;
+    border-left-color: #777;
+    border-right-color: #777;
+    border-top-color: #999;
+    border-bottom: 4px solid #555;
+    /* {{ No selectable }} */
+    user-select: none;
+    /*[{- Border radius -}]*/
+    border-radius: 50px;
+    /* Gradient */
+    background-image: linear-gradient(top,transparent,rgba(0,0,0,0.2));
+}
+.button:hover {
+    color: #333;
+    /*{Gradient}*/
+    background-image: linear-gradient(top,transparent,rgba(0,0,0,0.17));
+}
+.button:active {
+    margin-top: 4px;
+    color: #777;
+    border: 1px solid #999;
+    /*{Shadow}*/
+    box-shadow: inset 0 0 5px 0 #333;
+    -moz-box-shadow: inset 0 0 5px 0 #333;
+    -webkit-box-shadow: inset 0 1px 2px 0 #333, 0 1px 1px 0 #fff;
 }
 .chuckNorrisJokes {
     color: red;
