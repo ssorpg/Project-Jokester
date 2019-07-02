@@ -85,7 +85,7 @@ function getJokes(searchTerm) {
                 let currentJoke = formatJoke(response, api); // Get the actual joke from the response
 
                 if (currentJoke) {
-                    let newJoke = $('<p>').addClass('col-12 singleJoke ' + api).html(currentJoke); // Create the joke
+                    let newJoke = $('<p>').addClass('col-12 singleJoke ' + api).html('<button class="button"><span>🗣</span></button>' + `<div>${currentJoke}</div>`); // Create the joke
                     registry.child(selectedUsername).update({
                         searchResults: $('.mainContent').html()
                     })
