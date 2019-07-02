@@ -70,9 +70,15 @@ function getJokes(searchTerm) {
                 console.log(response);
 
                 let currentJoke = formatJoke(response, api); // Get the actual joke from the response
+                let newJoke;
 
                 if (currentJoke) {
-                    let newJoke = $('<p>').addClass('col-12 singleJoke ' + api).html(currentJoke); // Create the joke
+                    if (currentJoke.type === 'string') {
+                        newJoke = $('<p>').addClass('col-12 singleJoke ' + api).html('<button class="button"><span>🗣</span></button><span class="jokeText">' + currentJoke.joke + '</span>'); // Create the joke
+                    }
+                    else if (currentJoke.type === 'image') {
+                        newJoke = $('<p>').addClass('col-12 singleJoke ' + api).html(currentJoke.joke);
+                    }
                     $('.mainContent').append(newJoke); // Put it on the page
 
                     registry.child(selectedUsername).update({
@@ -87,52 +93,64 @@ function getJokes(searchTerm) {
 }
 
 function formatJoke(response, api) { // Get jokes from response here
-    let currentJoke;
+    let currentJoke = {};
 
     try { // Catch arrays with no jokes in them (undefined)
         switch (api) {
             case 'chuckNorrisJokes':
-                currentJoke = response.result[getRandomPos(response.result.length)].value; // Random joke
+                currentJoke.joke = response.result[getRandomPos(response.result.length)].value; // Random joke
+                currentJoke.type = 'string';
                 break;
             case 'generalJokes':
                 if (response.type === 'twopart') {
-                    currentJoke = response.setup + '<br>' + response.delivery; // Get two properties
+                    currentJoke.joke = response.setup + '<br>' + response.delivery; // Get two properties
+                    currentJoke.type = 'string';
                 }
                 else if (response.type === 'single') {
-                    currentJoke = response.joke; // String
+                    currentJoke.joke = response.joke; // String
+                    currentJoke.type = 'string';
                 }
                 break;
-            case 'geekJokes':
-                currentJoke = response; // String
-                break;
-            case 'corporateBS':
-                currentJoke = response.phrase; // String
-                break;
+            // case 'geekJokes':
+            //     currentJoke = response; // String
+            //     currentJoke.type = 'string';
+            //     break;
+            // case 'corporateBS':
+            //     currentJoke = response.phrase; // String
+            //     currentJoke.type = 'string';
+            //     break;
             case 'ronSwansonQuotes':
-                currentJoke = response[0]; // Array
+                currentJoke.joke = response[0]; // Array
+                currentJoke.type = 'string';
                 break;
             case 'yoMommaJokes':
-                currentJoke = JSON.parse(response).joke; // Stringified by default
+                currentJoke.joke = JSON.parse(response).joke; // Stringified by default
+                currentJoke.type = 'string';
                 break;
             case 'dadJokes':
-                currentJoke = response.results[getRandomPos(response.results.length)].joke; // Random joke
+                currentJoke.joke = response.results[getRandomPos(response.results.length)].joke; // Random joke
+                currentJoke.type = 'string';
                 break;
             case 'giphyMemes':
-                currentJoke = response.data[getRandomPos(response.data.length)].images.fixed_height.url; // Random image
-                currentJoke = '<img src="' + currentJoke + '">'; // Create image element
+                currentJoke.joke = response.data[getRandomPos(response.data.length)].images.fixed_height.url; // Random image
+                currentJoke.joke = '<img src="' + currentJoke.joke + '">'; // Create image element
+                currentJoke.type = 'image';
                 break;
-            case 'tronaldDumpQuotes':
-                currentJoke = 'Trump:<br>' + response._embedded.quotes[getRandomPos(response._embedded.quotes.length)].value;
-                break;
+            // case 'tronaldDumpQuotes':
+            //     currentJoke = 'Trump:<br>' + response._embedded.quotes[getRandomPos(response._embedded.quotes.length)].value;
+            //     currentJoke.type = 'string';
+            //     break;
             case 'xkcdComics':
-                currentJoke = JSON.parse(response).results[0].image; // First image
-                currentJoke = '<a href="' + currentJoke + '" target="_blank"><img src="' + currentJoke + '"></a>'; // Create image element
+                currentJoke.joke = JSON.parse(response).results[0].image; // First image
+                currentJoke.joke = '<a href="' + currentJoke.joke + '" target="_blank"><img src="' + currentJoke.joke + '"></a>'; // Create image element
+                currentJoke.type = 'image';
         }
     }
     catch (error) {
         console.log('ERR: No ' + api + ' found.');
     }
 
+    console.log(currentJoke);
     return currentJoke;
 }
 
@@ -253,8 +271,10 @@ $(document).ready(function () { // Wait for page to load
         }
     });
 
-    $(document).on('click', '.singleJoke', event => {
-        let target = $(event.target);
+    $(document).on('click', '.button', event => {
+        let target = $(event.target).parent().parent().find('.jokeText');
+
+        console.log(target);
 
         responsiveVoice.speak(target.text(), "UK English Male", {pitch: 2}); // Read out a clicked joke
     });
