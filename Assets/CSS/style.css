@@ -1,6 +1,9 @@
-/* body {
-    background-image: url("../Images/dadjokes-550.jpg");
-} */
+ body {
+    background: url(../Images/164149768-chuck-norris-wallpapers.jpg);
+    background-repeat: no-repeat;
+    background-size:  100%;
+    background-color: black;
+} 
 .initial {
     margin-top: 5%;
     text-align: center;
@@ -47,7 +50,7 @@
     border: none;
 }
 .searchButton:hover, .suggestButton:hover {
-	  background: linear-gradient(to bottom, #ef027d 5%, #ef027d 100%);
+	  background: linear-gradient(to bottom, #ef027d 25%, #ef027d 100%);
 	  background-color: #68a54b;
 }
 .mainContent {
@@ -77,6 +80,7 @@ img {
     box-shadow: inset 0px 4px 17px rgb(220, 255, 22);
     border-radius: 20px;
     padding: 20px;
+    background: rgb(245, 255, 245);
 }
 .centerHeader {
     text-align: center;
@@ -117,6 +121,7 @@ img {
 .checkBoxes {
     box-shadow: inset 0px 4px 17px rgb(255, 251, 3);
     border-radius: 20px;
+    background-color: rgb(245, 255, 245);
 }
 .selectAPI {
     margin-top: 14px;
@@ -125,7 +130,6 @@ img {
 .button {
     /*[ Position ]*/
     margin: 0 10px 50px 10px;
-    float: left;
     left: 200px;
     top: 90px;
     /* [ Botton ] */
@@ -189,4 +193,13 @@ img {
 }
 .dadJokes {
     color: goldenrod;
+}
+.tronaldDumpQuotes {
+    color: rgb(0, 255, 170);
+}
+.corporateBS{
+    color: navy;
+}
+p {
+    color: rgb(255, 255, 255);
 }
