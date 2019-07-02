@@ -17,29 +17,23 @@ const database = firebase.database();
 const registry = database.ref('projectJokester/registry');
 
 // APIs
-const APIs = {
-    giphyMemes: 'http://api.giphy.com/v1/gifs/search?limit=10&api_key=3dEcVRH1SquXQ50csTRKQnxK8aTT0yxt&q=',
-    chuckNorrisJokes: 'https://api.chucknorris.io/jokes/search?query=',
-    generalJokes: 'https://sv443.net/jokeapi/category/Any',
-    geekJokes: 'https://geek-jokes.sameerkumar.website/api',
-    corporateBS: 'https://corporatebs-generator.sameerkumar.website',
-    ronSwansonQuotes: 'https://ron-swanson-quotes.herokuapp.com/v2/quotes',
-    yoMommaJokes: 'https://api.yomomma.info',
-    dadJokes: 'https://icanhazdadjoke.com/search?limit=10&term=',
-    tronaldDumpQuotes: 'https://api.tronalddump.io/search/quote?query=',
-    xkcdComics: 'https://relevant-xkcd-backend.herokuapp.com/search'
-};
-const searchableAPIs = {
-    giphyMemes: true,
-    chuckNorrisJokes: true,
-    dadJokes: true,
-    tronaldDumpQuotes: true
-};
 const relatedWordsAPI = 'https://api.datamuse.com/words?ml='; // URL to get our suggestedTerms
 const proxyURL = 'https://cors-anywhere.herokuapp.com/'; // CORS proxy
 
 // Dynamic
-var selectedAPIs = APIs; // The APIs our user allows
+var APIs = {
+    giphyMemes: { url: 'http://api.giphy.com/v1/gifs/search?limit=10&api_key=3dEcVRH1SquXQ50csTRKQnxK8aTT0yxt&q=', name: 'Giphy Memes', selected: true, searchable: true },
+    chuckNorrisJokes: { url: 'https://api.chucknorris.io/jokes/search?query=', name: 'Chuck Norris Jokes', selected: true, searchable: true },
+    generalJokes: { url: 'https://sv443.net/jokeapi/category/Any', name: 'General Jokes', selected: true, searchable: false },
+    geekJokes: { url: 'https://geek-jokes.sameerkumar.website/api', name: 'Geek Memes', selected: true, searchable: false },
+    corporateBS: { url: 'https://corporatebs-generator.sameerkumar.website', name: 'Corporate BS', selected: true, searchable: false },
+    ronSwansonQuotes: { url: 'https://ron-swanson-quotes.herokuapp.com/v2/quotes', name: 'Ron Swanson Quotes', selected: true, searchable: false },
+    yoMommaJokes: { url: 'https://api.yomomma.info', name: 'Yo Momma Jokes', selected: true, searchable: false },
+    dadJokes: { url: 'https://icanhazdadjoke.com/search?limit=10&term=', name: 'Dad Jokes', selected: true, searchable: true },
+    tronaldDumpQuotes: { url: 'https://api.tronalddump.io/search/quote?query=', name: 'Tronald Dump Quotes', selected: true, searchable: true },
+    xkcdComics: { url: 'https://relevant-xkcd-backend.herokuapp.com/search', name: 'XKCD Comics', selected: true, searchable: false }
+};
+
 var selectedUsername; // Username of current user
 
 
@@ -52,9 +46,9 @@ function getJokes(searchTerm) {
         searchResults: ''
     })
 
-    for (let api in selectedAPIs) { // For each api...
-        if (selectedAPIs[api]) { // If the api has been allowed...
-            let apiURL = selectedAPIs[api]; // Get the URL
+    for (let api in APIs) { // For each api...
+        if (APIs[api].selected) { // If the api has been allowed...
+            let apiURL = APIs[api].url; // Get the URL
 
             let searchHeaders = { // Create our search object for ajax
                 method: "GET",
@@ -63,7 +57,7 @@ function getJokes(searchTerm) {
                 }
             };
 
-            if (searchableAPIs[api]) {
+            if (APIs[api].searchable) {
                 apiURL += searchTerm; // For searchable APIs, add our searchTerm
             }
             else if (api === 'xkcdComics') {
@@ -72,7 +66,7 @@ function getJokes(searchTerm) {
 
                 console.log(searchForm[0]);
 
-                let searchData = new FormData(searchForm[0]); // COnvert to regular JS element
+                let searchData = new FormData(searchForm[0]); // Convert to regular JS element
 
                 searchHeaders = {
                     method: "POST",
@@ -192,42 +186,50 @@ function getSuggestions(searchTerm) {
 function getUser() {
     registry.child(selectedUsername).once('value', snapshot => {
         if (snapshot.exists()) {
-            pageSetup(snapshot.val()); // Turn into a JS object for ease of use
+            snapshot = snapshot.val();
+
+            APIs = snapshot.APIs;
+            pageSetup(snapshot); // Turn into a JS object for ease of use
         }
         else {
             registry.child(selectedUsername).update({
                 name: selectedUsername,
-                selectedAPIs: selectedAPIs
+                APIs: APIs
             })
         }
     })
-
-    $('.initial').css('display', 'none');
-    $('.wrapper').css('display', 'block');
 }
 
 function pageSetup(snapshot) {
     $('.mainContent').html(snapshot.searchResults);
     $('.suggestedContent').html(snapshot.suggestions);
     $('.searchBar').val(snapshot.searchTerm);
-    selectedAPIs = snapshot.selectedAPIs;
 
-    for (let api in selectedAPIs) {
+    for (let api in APIs) {
         let newLabel = $('<label>').addClass('selectAPI ' + api);
-        newLabel.html('<input type="checkbox" apiID="' + api + '" apiURL="' + selectedAPIs[api] + '" checked>');
+        newLabel.html('<input type="checkbox" apiID="' + api + '" checked>' + APIs[api].name);
 
-        if (!selectedAPIs[api]) { // API not allowed
+        if (!APIs[api].selected) { // API not allowed
             newLabel.find('input').prop('checked', false);
         }
 
         $('.checkBoxes').append(newLabel);
     }
+
+    $('.initial').css('display', 'none');
+    $('.wrapper').css('display', 'block');
 }
 
 
 
 // FUNCTION CALLS
 $(document).ready(function () { // Wait for page to load
+    $('.login').on('click', event => {
+        selectedUsername = $('.usernameInput').val();
+
+        getUser(selectedUsername);
+    })
+
     $('.usernameInput').on('keypress', event => {
         if (event.keyCode === 13) { // 13 is the enter key
             event.preventDefault();
@@ -285,23 +287,23 @@ $(document).ready(function () { // Wait for page to load
 
         console.log(target.attr('checked'));
 
-        for (let api in selectedAPIs) {
+        for (let api in APIs) {
             if (api === target.attr('apiID')) {
                 if (target.prop('checked') === false) { // Checkbox unchecks BEFORE this script runs
-                    selectedAPIs[api] = false; // Don't search this API
+                    APIs[api].selected = false; // Don't search this API
                     break; // We matched our API, so end
                 }
                 else if (target.prop('checked') === true) {
-                    selectedAPIs[api] = target.attr('apiURL');
+                    APIs[api].selected = true;
                     break;
                 }
             }
         }
 
         registry.child(selectedUsername).update({
-            selectedAPIs: selectedAPIs
+            APIs: APIs
         })
 
-        console.log(selectedAPIs);
+        console.log(APIs);
     });
 });

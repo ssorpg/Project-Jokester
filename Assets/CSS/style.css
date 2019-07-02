@@ -1,6 +1,10 @@
 /* body {
     background-image: url("../Images/dadjokes-550.jpg");
 } */
+.initial {
+    margin-top: 5%;
+    text-align: center;
+}
 .wrapper {
     width: 90%;
     margin: auto;
