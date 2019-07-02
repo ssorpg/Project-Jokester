@@ -1,8 +1,8 @@
  body {
-    background: url(../Images/164149768-chuck-norris-wallpapers.jpg);
+    /* background: url(../Images/164149768-chuck-norris-wallpapers.jpg); */
     background-repeat: no-repeat;
     background-size:  100%;
-    background-color: black;
+    /* background-color: black; */
 } 
 .initial {
     margin-top: 5%;

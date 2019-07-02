@@ -220,7 +220,19 @@ function pageSetup(snapshot) {
     $('.wrapper').css('display', 'block');
 }
 
+let images =['url("Assets/Images/ron-swanson-wallpaper-hd-1080p-351252.jpg")','url("Assets/Images/geek.png")','url'("Assets/Images/164149768-chuck-norris-wallpapers.jpg") ];
 
+function randomBackground () {
+let i = Math.floor(Math.random()* images.length);
+return images [i];
+
+}
+
+
+function changeBackground() {
+    document.body.style.backgroundImage = randomBackground();
+
+}
 
 // FUNCTION CALLS
 $(document).ready(function () { // Wait for page to load
@@ -258,7 +270,11 @@ $(document).ready(function () { // Wait for page to load
     $('.searchButton').on('click', event => {
         let searchTerm = $('.searchBar').val(); // Get search term from search bar
 
-        getJokes(searchTerm);
+        getJokes(searchTerm); 
+            // background change 
+            //body 
+        changeBackground();
+        
     });
 
     $('.searchBar').on('keypress', event => {
