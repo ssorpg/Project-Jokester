@@ -220,7 +220,7 @@ function pageSetup(snapshot) {
     $('.wrapper').css('display', 'block');
 }
 
-let images =['url("Assets/Images/ron-swanson-wallpaper-hd-1080p-351252.jpg")','url("Assets/Images/geek.png")','url'("Assets/Images/164149768-chuck-norris-wallpapers.jpg") ];
+let images =['url("Assets/Images/ron-swanson-wallpaper-hd-1080p-351252.jpg")','url("Assets/Images/geek.png")','url("Assets/Images/164149768-chuck-norris-wallpapers.jpg")' ];
 
 function randomBackground () {
 let i = Math.floor(Math.random()* images.length);
