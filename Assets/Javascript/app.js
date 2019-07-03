@@ -123,6 +123,9 @@ function formatJoke(response, api) { // Parse joke response here
                 currentJoke.type = 'string';
                 break;
             case 'yoMommaJokes':
+                if (JSON.parse(response).joke === null) {
+                    break;
+                }
                 currentJoke.joke = JSON.parse(response).joke; // Stringified by default
                 currentJoke.type = 'string';
                 break;
