@@ -22,12 +22,15 @@ const proxyURL = 'https://cors-anywhere.herokuapp.com/'; // CORS proxy
 
 // Dynamic
 var selectedUsername; // Username of current user
+var images = ['url("Assets/Images/ron-swanson-wallpaper-hd-1080p-351252.jpg")', 'url("Assets/Images/geek.png")', 'url("Assets/Images/164149768-chuck-norris-wallpapers.jpg")'];
 
 
 
 // FUNCTIONS
 function getJokes(searchTerm) {
     $('.mainContent').empty(); // Clear content for next joke search
+    changeBackground(); // New background
+
     registry.child(selectedUsername).update({ // Update the user's last search on Firebase
         searchTerm: $('.searchBar').val(),
         searchResults: ''
@@ -222,12 +225,10 @@ function createAPIList() {
 
         $('.checkBoxes').append(newLabel);
     }
-    // TODO: solve bug where previous user API list is sorted differently on page from new user API list
+
     $('.initial').css('display', 'none'); // Get rid of login page
     $('.wrapper').css('display', 'block'); // Put up the search page!
 }
-
-let images = ['url("Assets/Images/ron-swanson-wallpaper-hd-1080p-351252.jpg")', 'url("Assets/Images/geek.png")', 'url("Assets/Images/164149768-chuck-norris-wallpapers.jpg")'];
 
 function randomBackground() {
     let i = Math.floor(Math.random() * images.length);
@@ -248,31 +249,47 @@ $(document).ready(function () { // Wait for page to load
         $('.usernameInput').val(selectedUsername); // Put their name in the login field but don't log in (maybe they want to log in as someone else)
     }
 
-    $('.hamburgerButton').on('click', event => { // Toggle for hamburger menu
+    $(window).on('resize', function () {
+        if ($('body').width() > 999) {
+            $('.mainContent').removeAttr('style');
+            $('.checkBoxes').removeAttr('style');
+        }
+    });
+
+    $('.hamburgerButton').on('click', function () { // Toggle for hamburger menu
         if ($('.checkBoxes').css('display') === 'none') {
             $('.checkBoxes').css('display', 'initial');
             $('.mainContent').css('display', 'none');
         }
         else {
-            $('.checkBoxes').css('display', 'none');
-            $('.mainContent').css('display', 'initial');
+            $('.checkBoxes').removeAttr('style');
+            $('.mainContent').removeAttr('style');
         }
-        // TODO: solve bug where clicking hamburger icon and resizing page won't reveal previously hidden elements because inline styling overwrites CSS
     })
 
-    $('.login').on('click', event => { // When clicking login...
-        selectedUsername = $('.usernameInput').val(); // Get their entered username
+    $('.login').on('click', function () { // When clicking login...
+        if ($('.usernameInput').val()) {
+            selectedUsername = $('.usernameInput').val(); // Get their entered username
 
-        getUser(selectedUsername); // Log them in
+            getUser(selectedUsername); // Log them in
+        }
+        else {
+            $('#noUsername').addClass('show');
+        }
     })
 
     $('.usernameInput').on('keypress', event => { // When pressing a key...
         if (event.keyCode === 13) { // If it's the enter key...
             event.preventDefault();
 
-            selectedUsername = $('.usernameInput').val();
+            if ($('.usernameInput').val()) {
+                selectedUsername = $('.usernameInput').val(); // Get their entered username
 
-            getUser(selectedUsername); // Log them in
+                getUser(selectedUsername); // Log them in
+            }
+            else {
+                $('#noUsername').addClass('show');
+            }
         }
     });
 
@@ -296,7 +313,7 @@ $(document).ready(function () { // Wait for page to load
         getJokes(searchTerm); // Get the jokes!
     });
 
-    $('.searchButton').on('click', event => {
+    $('.searchButton').on('click', function () {
         let searchTerm = $('.searchBar').val(); // Get search term from search bar
 
         getJokes(searchTerm);
@@ -309,19 +326,14 @@ $(document).ready(function () { // Wait for page to load
             let searchTerm = $('.searchBar').val();
 
             getJokes(searchTerm);
-
-            changeBackground();
         }
     });
 
-    $('.suggestButton').on('click', event => {
+    $('.suggestButton').on('click', function () {
         let searchTerm = randWords[getRandomPos(randWords.length)].word; // Get a random word from our dictionary
         $('.searchBar').val(searchTerm); // Put the word in the search bar as if it had been typed
 
         getJokes(searchTerm);
-        // background change 
-        // body 
-        changeBackground();
     });
 
     $(document).on('click', '.selectAPI', event => { // When the user clicks a checkbox or it's label...

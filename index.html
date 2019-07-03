@@ -26,6 +26,14 @@
         <p>Enter a username:</p>
         <input type="text" class="usernameInput">
         <button class="login">Login</button>
+
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div id="noUsername" class="alert alert-danger alert-dismissible fade">
+                    <strong>Error!</strong> Please enter a username.
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="wrapper">
@@ -74,6 +82,9 @@
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Bootstrap js -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <!-- Link to ResponsiveVoice.js -->
     <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
