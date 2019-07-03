@@ -292,6 +292,9 @@ $(document).ready(function () { // Wait for page to load
         $('.searchBar').val(searchTerm);
 
         getJokes(searchTerm);
+
+        changeBackground();
+
     });
 
     $(document).on('click', '.selectAPI', event => { // When the user clicks a checkbox or it's label...
