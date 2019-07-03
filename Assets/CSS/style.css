@@ -1,4 +1,4 @@
- body {
+body {
     background: url(../Images/164149768-chuck-norris-wallpapers.jpg);
     background-repeat: no-repeat;
     background-size:  100%;
@@ -7,6 +7,12 @@
 .initial {
     margin-top: 5%;
     text-align: center;
+}
+.login {
+    margin-bottom: 1%;
+}
+.row {
+    margin: 0;
 }
 .wrapper {
     width: 90%;
