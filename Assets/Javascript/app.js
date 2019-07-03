@@ -98,7 +98,7 @@ function formatJoke(response, api) { // Get jokes from response here
                 break;
             case 'generalJokes':
                 if (response.type === 'twopart') {
-                    currentJoke.joke = response.setup + '<br>' + response.delivery; // Get two properties
+                    currentJoke.joke = response.setup + '<br><br>' + response.delivery; // Get two properties
                     currentJoke.type = 'string';
                 }
                 else if (response.type === 'single') {

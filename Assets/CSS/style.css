@@ -1,7 +1,7 @@
  body {
     background: url(../Images/164149768-chuck-norris-wallpapers.jpg);
     background-repeat: no-repeat;
-    background-size:  100%;
+    background-size: 100%;
     background-color: black;
 } 
 .initial {
@@ -35,11 +35,11 @@
     border-right: solid 20px;
     border-color: rgb(251, 214, 8);
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 26px;
+    font-size: 2em;
     line-height: 54px;
-    text-align: center;
     display: inline-flex;
     justify-content: center;
+    align-items: center;
     margin: 1%;
     flex: 0 0.3 35%;
 }
@@ -54,10 +54,6 @@
 }
 .suggestButton {
     border-color: rgb(30, 129, 221);
-}
-.searchButton > button, .suggestButton > button, .hamburgerButton > button {
-    flex: 0.7;
-    border: none;
 }
 .searchButton:hover, .suggestButton:hover, .hamburgerButton:hover {
     border-color: rgb(239, 2, 125);
@@ -80,12 +76,13 @@ p {
 .singleJoke {
     width: 100%;
     display: block;
-    break-inside: avoid-column;
+    break-inside: avoid;
     background: white;
     box-shadow: inset 0px 4px 17px rgb(244, 225, 225);
     border-radius: 20px;
     font-size:large;
     padding: 20px;
+    min-height: 85px;
 }
 .button {
     font-size: 30px;
@@ -93,6 +90,7 @@ p {
     float: left;
     margin-right: 8px;
     border: none;
+    min-height: 30px;
 }
 .button span {
     cursor: pointer;
@@ -104,7 +102,7 @@ p {
     content: '\00bb';
     position: absolute;
     opacity: 0;
-    top: 0;
+    top: -4px;
     right: 10px;
     transition: 0.2s;
 }
@@ -168,6 +166,7 @@ img {
     box-shadow: inset 0px 4px 17px rgb(255, 251, 3);
     border-radius: 20px;
     background-color: rgb(245, 255, 245);
+    padding: 20px;
 }
 @media only screen and (max-width: 1000px) {
     .checkBoxes {
@@ -178,8 +177,12 @@ img {
     }
 }
 .selectAPI {
-    margin-top: 14px;
+    padding-top: 7px;
+    padding-bottom: 7px;
     display: block;
+}
+.selectAPI > input {
+    margin-right: 4px;
 }
 .chuckNorrisJokes {
     color: rgb(255, 0, 0);
