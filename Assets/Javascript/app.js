@@ -222,7 +222,7 @@ function createAPIList() {
 
         $('.checkBoxes').append(newLabel);
     }
-
+    // TODO: solve bug where previous user API list is sorted differently on page from new user API list
     $('.initial').css('display', 'none'); // Get rid of login page
     $('.wrapper').css('display', 'block'); // Put up the search page!
 }
