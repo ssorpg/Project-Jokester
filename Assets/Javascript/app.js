@@ -227,6 +227,17 @@ function createAPIList() {
     $('.wrapper').css('display', 'block'); // Put up the search page!
 }
 
+let images = ['url("Assets/Images/ron-swanson-wallpaper-hd-1080p-351252.jpg")', 'url("Assets/Images/geek.png")', 'url("Assets/Images/164149768-chuck-norris-wallpapers.jpg")'];
+
+function randomBackground() {
+    let i = Math.floor(Math.random() * images.length);
+    return images[i];
+}
+
+function changeBackground() {
+    document.body.style.backgroundImage = randomBackground();
+}
+
 
 
 // FUNCTION CALLS
@@ -298,6 +309,8 @@ $(document).ready(function () { // Wait for page to load
             let searchTerm = $('.searchBar').val();
 
             getJokes(searchTerm);
+
+            changeBackground();
         }
     });
 
@@ -306,6 +319,9 @@ $(document).ready(function () { // Wait for page to load
         $('.searchBar').val(searchTerm); // Put the word in the search bar as if it had been typed
 
         getJokes(searchTerm);
+        // background change 
+        // body 
+        changeBackground();
     });
 
     $(document).on('click', '.selectAPI', event => { // When the user clicks a checkbox or it's label...
