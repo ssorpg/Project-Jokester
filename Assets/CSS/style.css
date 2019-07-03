@@ -21,41 +21,52 @@
 .searchBar { 
     font-family: 'Barriecito', cursive;
     font-size: 40px; 
-    border-color: #ef027d;
+    border-color: rgb(239, 2, 125);
     border-width: 6px;
     text-transform: uppercase;
     text-align: center;
     font-weight:bold;
 }
-.searchButton, .suggestButton {
+.searchButton, .suggestButton, .hamburgerButton {
     min-height: 80px;
-    width: 200px;
-    background: rgb(251, 214, 8);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
+    border: none;
+    border-left: solid 20px;
+    border-right: solid 20px;
+    border-color: rgb(251, 214, 8);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 26px;
     line-height: 54px;
     text-align: center;
     display: inline-flex;
     justify-content: center;
-
-    
+    margin: 1%;
+    flex: 0 0.3 35%;
+}
+.hamburgerButton {
+    border-color: rgb(62, 221, 30);
+    flex: 0 0.3 25%;
+}
+@media only screen and (min-width: 1000px) {
+    .hamburgerButton {
+        display: none;
+    }
 }
 .suggestButton {
-    background: rgb(30, 129, 221);
+    border-color: rgb(30, 129, 221);
 }
-.searchButton > button, .suggestButton > button {
+.searchButton > button, .suggestButton > button, .hamburgerButton > button {
     flex: 0.7;
     border: none;
 }
-.searchButton:hover, .suggestButton:hover {
-	  background: linear-gradient(to bottom, #ef027d 25%, #ef027d 100%);
-	  background-color: #68a54b;
+.searchButton:hover, .suggestButton:hover, .hamburgerButton:hover {
+    border-color: rgb(239, 2, 125);
+}
+.hugeText {
+    font-size: 50px;
 }
 .mainContent {
-    margin-top: 6%;
-    background-color: rgb(255, 251, 251);
+    margin-top: 4%;
     border-radius: 10px;
     font-family: 'Times New Roman', Times, serif;
     font-size: 22px;
@@ -63,25 +74,67 @@
     column-gap: 14px;
     padding: 24px;
 }
+p {
+    color: rgb(255, 255, 255);
+}
 .singleJoke {
     width: 100%;
     display: block;
     break-inside: avoid-column;
     background: white;
-    box-shadow: inset 0px 4px 17px #f4e1e1;
+    box-shadow: inset 0px 4px 17px rgb(244, 225, 225);
     border-radius: 20px;
     font-size:large;
-    
-    
+    padding: 20px;
+}
+.button {
+    font-size: 30px;
+    border-radius:50%;
+    float: left;
+    margin-right: 8px;
+    border: none;
+}
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.1s;
+}
+.button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: 10px;
+    transition: 0.2s;
+}
+.button:hover span {
+    padding-right: 25px;
+}
+.button:hover span:after {
+    opacity: 1;
+    right: 0;
 }
 img {
     max-width: 100%;
+    max-height: 400px;
 }
 .suggestedTerms {
     box-shadow: inset 0px 4px 17px rgb(220, 255, 22);
     border-radius: 20px;
     padding: 20px;
     background: rgb(245, 255, 245);
+}
+@media only screen and (max-width: 1000px) {
+    .suggestedTerms {
+        max-width: 40%;
+        flex: 0 0 40%;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .suggestedTerms {
+        display: none;
+    }
 }
 .centerHeader {
     text-align: center;
@@ -94,90 +147,55 @@ img {
 }
 .singleSuggestion {
     text-transform: capitalize;
-    /* width: 100px;
-    height: 100px;
-    background: rgb(255, 248, 30);
-    border-radius: 50%;
-    font-family: 'Alfa Slab One', cursive;
-    font-size: large; */
-    box-shadow: inset 0px 1px 0px 0px #9acc85;
-    background: linear-gradient(to bottom, #74ad5a 5%, #68a54b 100%);
-    background-color: #74ad5a;
-    border: 1px solid #3b6e22;
+    box-shadow: inset 0px 1px 0px 0px rgb(154, 204, 133);
+    background: linear-gradient(to bottom, rgb(116, 173, 90) 5%, rgb(104, 165, 75) 100%);
+    background-color: rgb(116, 173, 90);
+    border: 1px solid rgb(59, 110, 34);
     display: inline-block;
     cursor: pointer;
-    color: #ffffff;
+    color: rgb(255, 255, 255);
     font-family: Arial;
     font-size: 15px;
     font-weight: bold;
     padding: 6px 12px;
     text-decoration: none;
 }
-
 .singleSuggestion:hover {
-    background: linear-gradient(to bottom, #ef027d 5%, #ef027d 100%);
-    background-color: #68a54b;
-
+    background: linear-gradient(to bottom, rgb(239, 2, 125) 5%, rgb(239, 2, 125) 100%);
+    background-color: rgb(104, 165, 75);
 }
 .checkBoxes {
     box-shadow: inset 0px 4px 17px rgb(255, 251, 3);
     border-radius: 20px;
     background-color: rgb(245, 255, 245);
 }
+@media only screen and (max-width: 1000px) {
+    .checkBoxes {
+        margin-top: 2%;
+        display: none;
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+}
 .selectAPI {
     margin-top: 14px;
     display: block;
 }
 .chuckNorrisJokes {
-    color: red;
+    color: rgb(255, 0, 0);
 }
 .generalJokes {
-    color: blue;
+    color: rgb(0, 0, 255);
 }
 .geekJokes {
-    color: green;
+    color: rgb(0, 128, 0);
 }
 .ronSwansonQuotes {
-    color: brown;
+    color: rgb(165, 42, 42);
 }
 .yoMommaJokes {
-    color: purple;
+    color: rgb(128, 0, 128);
 }
 .dadJokes {
-    color: goldenrod;
-}
-.button {
-    font-size: 30px;
-    border-radius:50%;
-    float: left;
-    margin-right: 8px;
-}
-
-
-.button span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-  }
-  
-  .button span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
-  }
-  
-  .button:hover span {
-    padding-right: 25px;
-  }
-  
-  .button:hover span:after {
-    opacity: 1;
-    right: 0;
-  }
-p {
-    color: rgb(255, 255, 255);
+    color: rgb(218, 165, 32);
 }

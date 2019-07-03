@@ -14,10 +14,11 @@
     <!-- Barriecito Font -->
     <link href="https://fonts.googleapis.com/css?family=Barriecito&display=swap" rel="stylesheet">
 
+    <!-- Alfa Slab One Font -->
     <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One&display=swap" rel="stylesheet">
 
+    <!-- Enriqueta Font -->
     <link rel="Stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Enriqueta">
-    <link rel="Stylesheet" type="text/css" href="http://devsarray.com.ar/hernan/reset.css">
 </head>
 
 <body>
@@ -37,15 +38,9 @@
                 </form>
 
                 <div class="row justify-content-center">
-                    <div class="searchButton">
-                        <button>Search</button>
-                    </div>
-
-                    <div class="col-1"></div> <!-- Dummy div for spacing -->
-
-                    <div class="suggestButton">
-                        <button>Random</button>
-                    </div>
+                    <button class="searchButton">Search</button>
+                    <button class="suggestButton">Random</button>
+                    <button class="hamburgerButton hugeText">≡</button>
                 </div>
 
                 <div class="row">
@@ -56,7 +51,7 @@
             </div>
 
             <div class="col-md-3 suggestedTerms">
-                <div class="centerHeader">Suggested Terms</div>
+                <div class="centerHeader">Related Terms</div>
 
                 <div class="row suggestedContent">
                     <div class="col-12">
@@ -65,18 +60,11 @@
                 </div>
             </div>
 
-            <div class="col-md-2 checkBoxes">
+            <div class="col-2 checkBoxes">
                 <div class="centerHeader">Joke Selection</div>
             </div>
-
-           
-           
         </div>
-
-
     </div>
-
-    <!-- <div id="white" class="button">♪</div> -->
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/6.2.2/firebase-app.js"></script>
@@ -92,6 +80,9 @@
 
     <!-- Random Words Dictionary -->
     <script type="text/javascript" src="Assets/Javascript/randWords.js"></script>
+
+    <!-- API List -->
+    <script type="text/javascript" src="Assets/Javascript/apis.js"></script>
 
     <!-- App Javascript -->
     <script type="text/javascript" src="Assets/Javascript/app.js"></script>

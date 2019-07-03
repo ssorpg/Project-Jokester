@@ -21,19 +21,6 @@ const relatedWordsAPI = 'https://api.datamuse.com/words?ml='; // URL to get our 
 const proxyURL = 'https://cors-anywhere.herokuapp.com/'; // CORS proxy
 
 // Dynamic
-var APIs = {
-    giphyMemes: { url: 'http://api.giphy.com/v1/gifs/search?limit=10&api_key=3dEcVRH1SquXQ50csTRKQnxK8aTT0yxt&q=', name: 'Giphy Memes', selected: true, searchable: true },
-    chuckNorrisJokes: { url: 'https://api.chucknorris.io/jokes/search?query=', name: 'Chuck Norris Jokes', selected: true, searchable: true },
-    generalJokes: { url: 'https://sv443.net/jokeapi/category/Any', name: 'General Jokes', selected: true, searchable: false },
-    geekJokes: { url: 'https://geek-jokes.sameerkumar.website/api', name: 'Geek Memes', selected: true, searchable: false },
-    corporateBS: { url: 'https://corporatebs-generator.sameerkumar.website', name: 'Corporate BS', selected: true, searchable: false },
-    ronSwansonQuotes: { url: 'https://ron-swanson-quotes.herokuapp.com/v2/quotes', name: 'Ron Swanson Quotes', selected: true, searchable: false },
-    yoMommaJokes: { url: 'https://api.yomomma.info', name: 'Yo Momma Jokes', selected: true, searchable: false },
-    dadJokes: { url: 'https://icanhazdadjoke.com/search?limit=10&term=', name: 'Dad Jokes', selected: true, searchable: true },
-    tronaldDumpQuotes: { url: 'https://api.tronalddump.io/search/quote?query=', name: 'Tronald Dump Quotes', selected: true, searchable: true },
-    xkcdComics: { url: 'https://relevant-xkcd-backend.herokuapp.com/search', name: 'XKCD Comics', selected: true, searchable: false }
-};
-
 var selectedUsername; // Username of current user
 
 
@@ -64,8 +51,6 @@ function getJokes(searchTerm) {
                 let searchForm = $('<form>');
                 searchForm = searchForm.html('<input name="search" type="text" value="' + searchTerm + '">');
 
-                console.log(searchForm[0]);
-
                 let searchData = new FormData(searchForm[0]); // Convert to regular JS element
 
                 searchHeaders = {
@@ -79,17 +64,21 @@ function getJokes(searchTerm) {
             searchHeaders.url = proxyURL + apiURL; // Always use CORS proxy
 
             $.ajax(searchHeaders).then(response => {
-                console.log(api + ' response: ');
-                console.log(response);
-
                 let currentJoke = formatJoke(response, api); // Get the actual joke from the response
+                let newJoke;
 
                 if (currentJoke) {
-                    let newJoke = $('<p>').addClass('col-12 singleJoke ' + api).html('<button class="button"><span>🗣</span></button>' + `<div>${currentJoke}</div>`); // Create the joke
+                    if (currentJoke.type === 'string') {
+                        newJoke = $('<p>').addClass('col-12 singleJoke ' + api).html('<button class="button"><span>🗣</span></button><span class="jokeText">' + currentJoke.joke + '</span>'); // Create the joke
+                    }
+                    else if (currentJoke.type === 'image') {
+                        newJoke = $('<p>').addClass('col-12 singleJoke ' + api).html(currentJoke.joke);
+                    }
+                    $('.mainContent').append(newJoke); // Put it on the page
+
                     registry.child(selectedUsername).update({
                         searchResults: $('.mainContent').html()
                     })
-                    $('.mainContent').append(newJoke); // Put it on the page
                 }
             });
         }
@@ -99,46 +88,57 @@ function getJokes(searchTerm) {
 }
 
 function formatJoke(response, api) { // Get jokes from response here
-    let currentJoke;
+    let currentJoke = {};
 
     try { // Catch arrays with no jokes in them (undefined)
         switch (api) {
             case 'chuckNorrisJokes':
-                currentJoke = response.result[getRandomPos(response.result.length)].value; // Random joke
+                currentJoke.joke = response.result[getRandomPos(response.result.length)].value; // Random joke
+                currentJoke.type = 'string';
                 break;
             case 'generalJokes':
                 if (response.type === 'twopart') {
-                    currentJoke = response.setup + '<br>' + response.delivery; // Get two properties
+                    currentJoke.joke = response.setup + '<br>' + response.delivery; // Get two properties
+                    currentJoke.type = 'string';
                 }
                 else if (response.type === 'single') {
-                    currentJoke = response.joke; // String
+                    currentJoke.joke = response.joke; // String
+                    currentJoke.type = 'string';
                 }
                 break;
-            case 'geekJokes':
-                currentJoke = response; // String
-                break;
-            case 'corporateBS':
-                currentJoke = response.phrase; // String
-                break;
+            // case 'geekJokes':
+            //     currentJoke = response; // String
+            //     currentJoke.type = 'string';
+            //     break;
+            // case 'corporateBS':
+            //     currentJoke = response.phrase; // String
+            //     currentJoke.type = 'string';
+            //     break;
             case 'ronSwansonQuotes':
-                currentJoke = response[0]; // Array
+                currentJoke.joke = response[0]; // Array
+                currentJoke.type = 'string';
                 break;
             case 'yoMommaJokes':
-                currentJoke = JSON.parse(response).joke; // Stringified by default
+                currentJoke.joke = JSON.parse(response).joke; // Stringified by default
+                currentJoke.type = 'string';
                 break;
             case 'dadJokes':
-                currentJoke = response.results[getRandomPos(response.results.length)].joke; // Random joke
+                currentJoke.joke = response.results[getRandomPos(response.results.length)].joke; // Random joke
+                currentJoke.type = 'string';
                 break;
             case 'giphyMemes':
-                currentJoke = response.data[getRandomPos(response.data.length)].images.fixed_height.url; // Random image
-                currentJoke = '<img src="' + currentJoke + '">'; // Create image element
+                currentJoke.joke = response.data[getRandomPos(response.data.length)].images.fixed_height.url; // Random image
+                currentJoke.joke = '<img src="' + currentJoke.joke + '">'; // Create image element
+                currentJoke.type = 'image';
                 break;
-            case 'tronaldDumpQuotes':
-                currentJoke = 'Trump:<br>' + response._embedded.quotes[getRandomPos(response._embedded.quotes.length)].value;
-                break;
+            // case 'tronaldDumpQuotes':
+            //     currentJoke = 'Trump:<br>' + response._embedded.quotes[getRandomPos(response._embedded.quotes.length)].value;
+            //     currentJoke.type = 'string';
+            //     break;
             case 'xkcdComics':
-                currentJoke = JSON.parse(response).results[0].image; // First image
-                currentJoke = '<a href="' + currentJoke + '" target="_blank"><img src="' + currentJoke + '"></a>'; // Create image element
+                currentJoke.joke = JSON.parse(response).results[0].image; // First image
+                currentJoke.joke = '<a href="' + currentJoke.joke + '" target="_blank"><img src="' + currentJoke.joke + '"></a>'; // Create image element
+                currentJoke.type = 'image';
         }
     }
     catch (error) {
@@ -166,8 +166,6 @@ function getSuggestions(searchTerm) {
     }).then(response => {
         let numSuggestions = 0;
 
-        console.log(response);
-
         while (numSuggestions < 10 && response[numSuggestions]) { // Only get up to 10 results
             let currentSuggestion = response[getRandomPos(response.length)].word;
 
@@ -184,18 +182,22 @@ function getSuggestions(searchTerm) {
 }
 
 function getUser() {
+    localStorage.setItem('jokesterName', selectedUsername);
+
     registry.child(selectedUsername).once('value', snapshot => {
         if (snapshot.exists()) {
-            snapshot = snapshot.val();
+            snapshot = snapshot.val(); // Turn into a JS object for ease of use
 
             APIs = snapshot.APIs;
-            pageSetup(snapshot); // Turn into a JS object for ease of use
+            pageSetup(snapshot);
         }
         else {
             registry.child(selectedUsername).update({
                 name: selectedUsername,
                 APIs: APIs
             })
+            
+            createAPIList();
         }
     })
 }
@@ -205,6 +207,10 @@ function pageSetup(snapshot) {
     $('.suggestedContent').html(snapshot.suggestions);
     $('.searchBar').val(snapshot.searchTerm);
 
+    createAPIList();
+}
+
+function createAPIList() {
     for (let api in APIs) {
         let newLabel = $('<label>').addClass('selectAPI ' + api);
         newLabel.html('<input type="checkbox" apiID="' + api + '" checked>' + APIs[api].name);
@@ -224,6 +230,23 @@ function pageSetup(snapshot) {
 
 // FUNCTION CALLS
 $(document).ready(function () { // Wait for page to load
+    if (localStorage.getItem('jokesterName')) {
+        selectedUsername = localStorage.getItem('jokesterName');
+
+        $('.usernameInput').val(selectedUsername);
+    }
+
+    $('.hamburgerButton').on('click', event => {
+        if ($('.checkBoxes').css('display') === 'none') {
+            $('.checkBoxes').css('display', 'initial');
+            $('.mainContent').css('display', 'none');
+        }
+        else {
+            $('.checkBoxes').css('display', 'none');
+            $('.mainContent').css('display', 'initial');
+        }
+    })
+
     $('.login').on('click', event => {
         selectedUsername = $('.usernameInput').val();
 
@@ -240,10 +263,15 @@ $(document).ready(function () { // Wait for page to load
         }
     });
 
-    $(document).on('click', '.singleJoke', event => {
-        let target = $(event.target);
+    $(document).on('click', '.button', event => {
+        if(responsiveVoice.isPlaying()) { // Button can be used as a toggle
+            responsiveVoice.cancel();
+            return;
+        }
+        
+        let target = $(event.target).parent().parent().find('.jokeText'); // I don't like this line of code but idk how to fix it
 
-        responsiveVoice.speak(target.text()); // Read out a clicked joke
+        responsiveVoice.speak(target.text(), "UK English Male", {pitch: 2}); // Read out a clicked joke
     });
 
     $(document).on('click', '.singleSuggestion', event => {
@@ -285,8 +313,6 @@ $(document).ready(function () { // Wait for page to load
             target = $(event.target.querySelector('input')); // Get the checkbox child
         }
 
-        console.log(target.attr('checked'));
-
         for (let api in APIs) {
             if (api === target.attr('apiID')) {
                 if (target.prop('checked') === false) { // Checkbox unchecks BEFORE this script runs
@@ -303,7 +329,5 @@ $(document).ready(function () { // Wait for page to load
         registry.child(selectedUsername).update({
             APIs: APIs
         })
-
-        console.log(APIs);
     });
 });
