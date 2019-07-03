@@ -271,7 +271,7 @@ $(document).ready(function () { // Wait for page to load
             return;
         }
         
-        let target = $(event.target).parent().parent().find('.jokeText'); // I don't like this line of code but too lazy to make it better
+        let target = $(event.target).closest('.singleJoke').find('.jokeText'); // Gets the joke text for this button
 
         responsiveVoice.speak(target.text(), "UK English Male", {pitch: 2}); // Read out a clicked joke (in a funny voice)
     });
